@@ -31,7 +31,7 @@ from sklearn.preprocessing import StandardScaler
 # ------------------------------------------------------------------
 # 1. Constantes du projet
 # ------------------------------------------------------------------
-VERSION_MODELE = "1.0.0"
+VERSION_MODELE = "1.1.0"
 GRAINE = 42                      # graine aléatoire : résultats reproductibles
 PIED2_VERS_M2 = 0.09290304       # 1 pied carré = 0,09290304 m²
 CENTRE_SEATTLE = (47.6062, -122.3321)  # point de référence du centre-ville
@@ -127,7 +127,7 @@ def main():
     # Modèle de référence (simple) puis modèle principal.
     reference = construire_pipeline(LinearRegression()).fit(X_train, y_train)
     principal = construire_pipeline(
-        HistGradientBoostingRegressor(max_iter=400, learning_rate=0.06, random_state=GRAINE)
+        HistGradientBoostingRegressor(max_iter=600, learning_rate=0.06, random_state=GRAINE)
     ).fit(X_train, y_train)
 
     scores_ref = evaluer(reference, X_test, y_test)

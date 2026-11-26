@@ -1,7 +1,7 @@
 {
   "nom": "prix-logement-king-county",
-  "version": "1.0.0",
-  "entraine_le": "2026-11-21T11:50:19Z",
+  "version": "1.1.0",
+  "entraine_le": "2026-11-26T11:26:30Z",
   "algorithme": "HistGradientBoostingRegressor (cible log1p)",
   "scikit_learn": "1.9.1",
   "variables": [
@@ -72,5 +72,5 @@
     "lon": -122.3321
   },
   "devise": "USD",
-  "sha256_modele": "5018aadc5c2a319c05505cc9338e710c3ab1ca6b5f5cac5c056aff5c36bd2a39"
+  "sha256_modele": "c92d6a21239a0b0fcf377f162337b817147744dec04e2ddaecd78e0b40782700"
 }

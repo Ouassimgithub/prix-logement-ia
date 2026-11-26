@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+<defs>
+<marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c0392b"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2c3e50"/></marker>
+</defs>
+<rect width="1000" height="640" fill="#fff"/>
+<text x="500" y="28" text-anchor="middle" font-size="18" font-weight="bold">Architecture de déploiement — API prix-logement (Azure)</text>
+
+<!-- Client -->
+<rect x="20" y="230" width="170" height="90" rx="8" fill="#ecf0f1" stroke="#2c3e50"/>
+<text x="105" y="260" text-anchor="middle" font-weight="bold">Client</text>
+<text x="105" y="280" text-anchor="middle">Navigateur (interface)</text>
+<text x="105" y="298" text-anchor="middle">ou tester_url.py</text>
+
+<!-- PC dev -->
+<rect x="20" y="460" width="170" height="90" rx="8" fill="#ecf0f1" stroke="#2c3e50"/>
+<text x="105" y="488" text-anchor="middle" font-weight="bold">PC développeur</text>
+<text x="105" y="508" text-anchor="middle">docker build / tag</text>
+<text x="105" y="526" text-anchor="middle">az acr login</text>
+
+<!-- Abonnement / RG -->
+<rect x="240" y="50" width="740" height="570" rx="10" fill="#f4f9ff" stroke="#0078d4" stroke-dasharray="6 4"/>
+<text x="255" y="72" font-weight="bold" fill="#0078d4">Abonnement « Azure subscription 1 » (Free Trial) · Région francecentral</text>
+<text x="255" y="90" fill="#0078d4">Groupe de ressources : rg-prix-logement</text>
+
+<!-- Environnement -->
+<rect x="270" y="110" width="440" height="300" rx="8" fill="#fff" stroke="#0078d4"/>
+<text x="285" y="132" font-weight="bold">Environnement Container Apps : env-prix-logement</text>
+<rect x="290" y="150" width="160" height="50" rx="6" fill="#d6eaf8" stroke="#2c3e50"/>
+<text x="370" y="171" text-anchor="middle" font-weight="bold">Ingress HTTPS (443)</text>
+<text x="370" y="189" text-anchor="middle" font-size="11">URL publique</text>
+<rect x="290" y="230" width="400" height="160" rx="6" fill="#eafaf1" stroke="#27ae60"/>
+<text x="305" y="252" font-weight="bold">Container App : api-prix-logement</text>
+<text x="305" y="271">Révision api-prix-logement--0000001 (100 % du trafic)</text>
+<text x="305" y="290">Conteneur · port 8000 · Uvicorn → FastAPI</text>
+<text x="305" y="309">Validation schemas.py → modèle 1.1.0 (sha256 c92d6a21…)</text>
+<text x="305" y="328">Image : prix-logement-api:1.1.0</text>
+<text x="305" y="352" fill="#8e44ad">Identité managée (system-assigned)</text>
+<text x="305" y="370" font-size="11" fill="#555">Réplicas min 0 (mise en veille sans trafic)</text>
+
+<!-- ACR -->
+<rect x="760" y="230" width="200" height="120" rx="8" fill="#fef5e7" stroke="#e67e22"/>
+<text x="860" y="254" text-anchor="middle" font-weight="bold">Registre ACR</text>
+<text x="860" y="274" text-anchor="middle">acrprix27074.azurecr.io</text>
+<text x="860" y="296" text-anchor="middle" font-size="12">prix-logement-api:1.0.0</text>
+<text x="860" y="314" text-anchor="middle" font-size="12">prix-logement-api:1.1.0</text>
+<text x="860" y="336" text-anchor="middle" font-size="11" fill="#555">compte admin désactivé</text>
+
+<!-- Logs -->
+<rect x="400" y="460" width="300" height="80" rx="8" fill="#f5eef8" stroke="#8e44ad"/>
+<text x="550" y="485" text-anchor="middle" font-weight="bold">Journaux (Log Analytics)</text>
+<text x="550" y="505" text-anchor="middle" font-size="12">« Modèle 1.1.0 chargé »</text>
+<text x="550" y="523" text-anchor="middle" font-size="12">« prediction entree={…} prix=… »</text>
+
+<!-- URL -->
+<text x="610" y="590" text-anchor="middle" font-size="12">URL : https://api-prix-logement.jollysea-0045aa68.francecentral.azurecontainerapps.io</text>
+
+<!-- Requête (rouge, numérotée) -->
+<path d="M190 255 L290 175" stroke="#c0392b" stroke-width="2.5" fill="none" marker-end="url(#r)"/>
+<text x="200" y="200" fill="#c0392b" font-weight="bold">① POST /predict</text>
+<text x="200" y="216" fill="#c0392b" font-size="11">JSON, HTTPS</text>
+<path d="M400 200 L400 230" stroke="#c0392b" stroke-width="2.5" marker-end="url(#r)"/>
+<text x="408" y="221" fill="#c0392b" font-weight="bold">② → port 8000</text>
+<text x="560" y="221" fill="#c0392b" font-weight="bold">③ calcul du prix</text>
+<path d="M290 330 L190 300" stroke="#c0392b" stroke-width="2.5" fill="none" marker-end="url(#r)"/>
+<text x="196" y="345" fill="#c0392b" font-weight="bold">④ {"prix_estime_usd"}</text>
+<path d="M500 390 L500 460" stroke="#c0392b" stroke-width="2.5" marker-end="url(#r)"/>
+<text x="508" y="430" fill="#c0392b" font-weight="bold">⑤ ligne de journal</text>
+
+<!-- Déploiement (bleu foncé, lettres) -->
+<path d="M190 500 Q600 600 850 350" stroke="#2c3e50" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#b)"/>
+<text x="740" y="470" fill="#2c3e50" font-weight="bold">A · docker push 1.1.0</text>
+<path d="M760 290 L690 290" stroke="#2c3e50" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#b)"/>
+<text x="700" y="225" fill="#8e44ad" font-weight="bold" font-size="12">B · pull de l'image</text>
+<text x="700" y="210" fill="#8e44ad" font-size="11">rôle AcrPull (identité)</text>
+
+<!-- Légende -->
+<text x="20" y="600" font-size="12" fill="#c0392b">━ ①→⑤ trajet d'une prédiction</text>
+<text x="20" y="620" font-size="12" fill="#2c3e50">┅ A, B déploiement de l'image</text>
+</svg>
